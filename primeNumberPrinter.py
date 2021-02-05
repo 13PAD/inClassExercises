@@ -1,7 +1,6 @@
 numbers = []
 
-def isPrime(n) : #pasted from geeksforgeeks
-
+def isPrime(n) : 
     # Corner cases 
     if (n <= 1) : 
         return False
