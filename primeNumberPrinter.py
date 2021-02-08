@@ -24,11 +24,8 @@ def isPrime(n) :
 interval1 = int(input("What is the lower threshold of the interval?:\t"))
 interval2 = int(input("what is the upper threshold of the interval?:\t"))
 while interval1 < interval2+1:
-    if interval1 % 2 == 0 and interval1 != 2:
-        interval1 += 1
-    else :
-        numbers.append(interval1)
-        interval1 += 1
+    if interval1 % 2 == 0 and interval1 != 2: interval1 += 1
+    else : numbers.append(interval1); interval1 += 1
 #print(numbers)
 
 for i in range(len(numbers)):
