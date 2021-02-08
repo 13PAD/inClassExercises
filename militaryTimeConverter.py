@@ -8,9 +8,15 @@ currentHour = int(currentTime[0])
 militaryHour = 0
 militaryTime = []
 if timeAM_PM == "AM":
-    militaryHour = currentHour
+    if currentHour == 12:
+        militaryHour = 0
+    else:
+        militaryHour = currentHour
 elif timeAM_PM == 'PM':
-    militaryHour = currentHour + 12
+    if currentHour == 12:
+        militaryHour = currentHour
+    else:
+        militaryHour = currentHour + 12
 else :
     print('no')
 militaryTime.append(str(militaryHour))
