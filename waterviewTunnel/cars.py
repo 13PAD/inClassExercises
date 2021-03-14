@@ -8,7 +8,7 @@ class Car:
         self.exitTime = exitTime
         self.duration = duration
         self.speed = speed
-        self.fine = ''
+        self.fine = fine
 
     def __str__(self):
         return str(self.__class__) + '\n' + '\n'.join(

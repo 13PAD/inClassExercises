@@ -1,7 +1,8 @@
 import datetime
+from cars import *
+from globals import *
 
 
-# noinspection PyUnboundLocalVariable
 def mergeDupes(oldList):
     newList = []
     for f, item in enumerate(oldList):
@@ -22,6 +23,15 @@ def mergeDupes(oldList):
     return newList
 
 
+def createCars(data):
+    instances = []
+    for i, column in enumerate(data):
+        duration = calculateDuration(column[1], column[2])
+        instances.append(Car(column[0], column[1], column[2], duration, calculateSpeed(duration, length),
+                             calculateFines(calculateSpeed(duration, length))))
+    return instances
+
+
 def calculateDuration(entryTime, exitTime):
     entryTimes, exitTimes = entryTime.split(":"), exitTime.split(":")
     entry = datetime.time(int(entryTimes[0]), int(entryTimes[1]), int(entryTimes[2]))
@@ -37,3 +47,15 @@ def calculateSpeed(time, distance):
     hours = (total_seconds / 3600)
     speed = (distance / 1000) / hours
     return speed
+
+
+def calculateFines(speed):
+    speedOver = speed - speed_limit
+    if speedOver <= 0:
+        return None
+    elif speedOver > fine_ranges[len(fine_ranges) - 1][0]:
+        return fines[len(fines) - 1]  # return the last fine in the list
+    else:
+        for i, x in reversed(list(enumerate(fine_ranges))):
+            if speedOver >= fine_ranges[i][0]:
+                return fines[i]
