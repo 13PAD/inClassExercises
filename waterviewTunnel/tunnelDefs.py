@@ -59,3 +59,10 @@ def calculateFines(speed):
         for i, x in reversed(list(enumerate(fine_ranges))):
             if speedOver >= fine_ranges[i][0]:
                 return fines[i]
+
+
+def printOutputs(instances):
+    print("licence", "entryTime", "exitTime", "duration", "speed", "fines")
+    for car in instances:
+        print("{} \t{}  {}  {}  {:.2f}km/h\t{}".format(car.license, car.entryTime,
+                                                       car.exitTime, car.duration, car.speed, car.fine))
