@@ -1,6 +1,8 @@
-from tunnelDefs import *
-from globals import *
+from custom.tunnelDefs import *
+from custom.globals import *
 rows = getFileData(filePath)
 rows = mergeDupes(rows)
-cars = createCars(rows)
-printOutputs(cars)
+length = changeLength()
+cars = createCars(rows, length)
+errors = checkForErrors(cars)
+printOutputs(cars, errors)
