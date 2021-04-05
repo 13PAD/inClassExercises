@@ -5,7 +5,7 @@ from custom.globals import *
 
 def checkNum(x):
     try:
-        x = int(x)
+        int(x)
         return True
     except ValueError:
         return False
@@ -35,7 +35,8 @@ def changeLength():
     isNum = False
     distance = 2690
     while not isNum:
-        inputtedDistance = input("enter a new distance or press enter to use default")
+        inputtedDistance = input("enter a new distance or"
+                                 " press enter to use default")
         if inputtedDistance == '':
             return 2690
         else:
@@ -46,21 +47,27 @@ def changeLength():
                 continue
 
 
-def createCars(data,distance):
+def createCars(data, distance):
     instances = []
     for i, column in enumerate(data):
         duration = calculateDuration(column[1], column[2])
-        instances.append(Car(column[0], column[1], column[2], duration, calculateSpeed(duration, distance),
-                             calculateFines(calculateSpeed(duration, distance))))
+        instances.append(Car(column[0], column[1], column[2], duration,
+                             calculateSpeed(duration, distance),
+                             calculateFines(calculateSpeed(duration,
+                                                           distance))))
     return instances
 
 
 def calculateDuration(entryTime, exitTime):
     entryTimes, exitTimes = entryTime.split(":"), exitTime.split(":")
-    entry = datetime.time(int(entryTimes[0]), int(entryTimes[1]), int(entryTimes[2]))
-    leave = datetime.time(int(exitTimes[0]), int(exitTimes[1]), int(exitTimes[2]))
-    entryDelta = datetime.timedelta(hours=entry.hour, minutes=entry.minute, seconds=entry.second)
-    exitDelta = datetime.timedelta(hours=leave.hour, minutes=leave.minute, seconds=leave.second)
+    entry = datetime.time(int(entryTimes[0]), int(entryTimes[1]),
+                          int(entryTimes[2]))
+    leave = datetime.time(int(exitTimes[0]), int(exitTimes[1]),
+                          int(exitTimes[2]))
+    entryDelta = datetime.timedelta(hours=entry.hour, minutes=entry.minute,
+                                    seconds=entry.second)
+    exitDelta = datetime.timedelta(hours=leave.hour, minutes=leave.minute,
+                                   seconds=leave.second)
     duration = exitDelta - entryDelta
     return duration
 
@@ -73,14 +80,14 @@ def calculateSpeed(time, distance):
 
 
 def calculateFines(speed):
-    speedOver = speed - speed_limit
+    speedOver = speed - speedLimit
     if speedOver <= 0:
         return None
-    elif speedOver > fine_ranges[len(fine_ranges) - 1][0]:
+    elif speedOver > fineRanges[len(fineRanges) - 1][0]:
         return fines[len(fines) - 1]  # return the last fine in the list
     else:
-        for i, x in reversed(list(enumerate(fine_ranges))):
-            if speedOver >= fine_ranges[i][0]:
+        for i, x in reversed(list(enumerate(fineRanges))):
+            if speedOver >= fineRanges[i][0]:
                 return fines[i]
 
 
@@ -90,16 +97,25 @@ def checkForErrors(speeders):
         totalSeconds = car.duration.total_seconds()
         speedyBoi = car.speed
         if totalSeconds > 240:
-            muckUps.append("{} took over 4 mins to exit the tunnel".format(car.license))
+            muckUps.append("{} did not exit".format(car.license))
         if speedyBoi > 200:
             muckUps.append("{} was going over 200km/h".format(car.license))
+        if speedyBoi < 0:
+            muckUps.append("{} was going backwards".format(car.license))
     return muckUps
 
 
-def printOutputs(instances, errors):
-    print("licence", "entryTime", "exitTime", "duration", "speed", "fines")
+def outputData(instances, mistakes, errorPath):
+    errorFile = open('custom/' + errorPath + '.txt', 'w+')
+    print("licence", "entryTime", "exitTime", " duration", "  speed", "\tfines")
     for car in instances:
-        print("{} \t{}  {}  {}  {:.2f}km/h\t{}".format(car.license, car.entryTime,
-                                                       car.exitTime, car.duration, car.speed, car.fine))
-    for error in errors:
+        if car.fine is not None:
+            errorFile.write("{} \twas fined {}\n".format(car.license, car.fine))
+        print("{} \t{}  {}  {}  "
+              "{:.2f}km/h\t {}".format(car.license, car.entryTime,
+                                       car.exitTime, car.duration,
+                                       car.speed, car.fine))
+    for error in mistakes:
+        errorFile.write(error + '\n')
         print(error)
+    errorFile.close()

@@ -1,8 +1,11 @@
 from custom.tunnelDefs import *
 from custom.globals import *
+while filePath is None:
+    filePath = getCustomFile()
+errorPath = getErrorFile()
 rows = getFileData(filePath)
 rows = mergeDupes(rows)
 length = changeLength()
 cars = createCars(rows, length)
-errors = checkForErrors(cars)
-printOutputs(cars, errors)
+problems = checkForErrors(cars)
+outputData(cars, problems, errorPath)
