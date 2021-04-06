@@ -6,7 +6,10 @@ from custom.globals import *
 def checkNum(x):
     try:
         int(x)
-        return True
+        if int(x) > 2400:
+            return True
+        else:
+            raise ValueError("Too small of a number")
     except ValueError:
         return False
 
@@ -47,6 +50,8 @@ def changeLength():
             if isNum:
                 return int(inputtedDistance)
             else:
+                print("that isn't a valid input,"
+                      " check if it is a number more than 2400")
                 continue
 
 
