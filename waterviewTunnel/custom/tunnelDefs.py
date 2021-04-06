@@ -4,6 +4,7 @@ from custom.globals import *
 
 
 def checkNum(x):
+    # simple error checking for a number lower than 2400
     try:
         int(x)
         if int(x) > 2400:
