@@ -15,6 +15,8 @@ def checkNum(x):
 
 
 def mergeDupes(oldList):
+    # returns a finished list with a list containing
+    # [carPlate, entryTime, exitTime]  for easy calculations.
     newList = []
     for f, item in enumerate(oldList):
         plate = item[0]
@@ -38,6 +40,8 @@ def mergeDupes(oldList):
 
 
 def changeLength():
+    # Function that lets the user change the distance between the two
+    # gantries with error checking for if it is a whole number below 2400
     isNum = False
     while not isNum:
         inputtedDistance = input("enter a new distance or"
