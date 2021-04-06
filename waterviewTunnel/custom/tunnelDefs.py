@@ -28,7 +28,6 @@ def mergeDupes(oldList):
                     depart = '00:00:00'
             newList.append([plate, entry, depart])
         except IndexError:
-            print("{} doesn't have times".format(item[0]))
             errors.append("{} doesn't have times".format(item[0]))
     for i, item in enumerate(newList):
         for x in range(i + 1, len(newList)):
