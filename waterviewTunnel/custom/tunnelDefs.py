@@ -21,7 +21,7 @@ def mergeDupes(oldList):
                 depart = oldList[o][1]
                 break
             else:
-                depart = None
+                depart = '00:00:00'
         newList.append([plate, entry, depart])
     for i, item in enumerate(newList):
         for x in range(i + 1, len(newList)):
@@ -97,11 +97,11 @@ def checkForErrors(speeders):
         totalSeconds = car.duration.total_seconds()
         speedyBoi = car.speed
         if totalSeconds > 240:
-            muckUps.append("{} did not exit".format(car.license))
+            muckUps.append("{} took too long".format(car.license))
         if speedyBoi > 200:
             muckUps.append("{} was going over 200km/h".format(car.license))
         if speedyBoi < 0:
-            muckUps.append("{} was going backwards".format(car.license))
+            muckUps.append("{} didn't exit".format(car.license))
     return muckUps
 
 
