@@ -18,14 +18,14 @@ def getFileData(file):
 
 
 def getCustomFile():
-    file = str(input('what is the filename?'))
-    if file.lower() == 'exit':
+    fileName = str(input('what is the filename? (type exit to exit)'))
+    if fileName.lower() == 'exit':
         print('exiting')
         quit(1)
     try:
-        myFile = open(file, 'r')
+        myFile = open(fileName, 'r')
         myFile.close()
-        return file
+        return fileName
     except FileNotFoundError:
         print("that file is not found, check for correct name")
         return None

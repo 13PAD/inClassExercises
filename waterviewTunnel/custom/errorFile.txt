@@ -54,6 +54,7 @@ UU771 	was fined 630
 WT19 	was fined 400
 XR677 	was fined 170
 YS178 	was fined 300
+chi doesn't have times
 DB356 took too long
 FN806 was going over 200km/h
 NP236 didn't exit

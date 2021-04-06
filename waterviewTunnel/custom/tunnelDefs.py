@@ -15,14 +15,18 @@ def mergeDupes(oldList):
     newList = []
     for f, item in enumerate(oldList):
         plate = item[0]
-        entry = item[1]
-        for o in range(f + 1, len(oldList)):
-            if oldList[o][0] in plate:
-                depart = oldList[o][1]
-                break
-            else:
-                depart = '00:00:00'
-        newList.append([plate, entry, depart])
+        try:
+            entry = item[1]
+            for o in range(f + 1, len(oldList)):
+                if oldList[o][0] in plate:
+                    depart = oldList[o][1]
+                    break
+                else:
+                    depart = '00:00:00'
+            newList.append([plate, entry, depart])
+        except IndexError:
+            print("{} doesn't have times".format(item[0]))
+            errors.append("{} doesn't have times".format(item[0]))
     for i, item in enumerate(newList):
         for x in range(i + 1, len(newList)):
             if newList[x][0] in item[0]:
@@ -33,7 +37,6 @@ def mergeDupes(oldList):
 
 def changeLength():
     isNum = False
-    distance = 2690
     while not isNum:
         inputtedDistance = input("enter a new distance or"
                                  " press enter to use default")
@@ -91,8 +94,8 @@ def calculateFines(speed):
                 return fines[i]
 
 
-def checkForErrors(speeders):
-    muckUps = []
+def checkForErrors(speeders, errorList):
+    muckUps = errorList
     for car in speeders:
         totalSeconds = car.duration.total_seconds()
         speedyBoi = car.speed
