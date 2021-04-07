@@ -36,7 +36,6 @@ def getFileData(file):
     # that reads and gets the data from the file itself.
     with open(file) as csvfile:
         fileData = csv.reader(csvfile, delimiter=',')
-        next(fileData)
         rows = sorted(fileData)
         csvfile.close()
         return rows

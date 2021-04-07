@@ -1,7 +1,6 @@
 class Car:
-    # Represents a recording rule from csv
-    license, entryTime, exitTime, duration, speed, fine = '', '', '', '', '', ''
-
+    # My program uses a custom class called car to help
+    # easily manipulate the data and store it easily.
     def __init__(self, licence, entryTime, exitTime, duration, speed, fine):
         self.license = licence
         self.entryTime = entryTime
@@ -9,7 +8,3 @@ class Car:
         self.duration = duration
         self.speed = speed
         self.fine = fine
-
-    def __str__(self):
-        return str(self.__class__) + '\n' + '\n'.join(
-            ('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
